@@ -13,9 +13,9 @@ host('ta19heinsoo.itmajakas.ee')
     ->setHostname('ta19heinsoo.itmajakas.ee')
     ->set('http_user', 'virt83119')
     ->set('deploy_path', '~/domeenid/www.ta19heinsoo.itmajakas.ee/pdf')
-    ->set('branch', 'master');
+    ->set('branch', 'main');
 
-set('repository', 'git@gitlab.com:RalfHei/hajusrakendus.git');
+set('repository', 'https://github.com/RalfHei/pdf-example.git');
 
 // tasks
 task('opcache:clear', function () {

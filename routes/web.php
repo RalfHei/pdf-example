@@ -11,6 +11,7 @@ Route::get('/pdf-example-1', function () {
     $pdf = app(Browsershot::class)
         ->setUrl(route('home')) 
         ->format('A4')
+        ->noSandbox()
         ->waitForSelector('.pdf-demo')
         ->pdf();
 
