@@ -12,6 +12,7 @@ Route::get('/pdf-example-1', function () {
         ->setUrl(route('home')) 
         ->format('A4')
         ->noSandbox()
+        ->usePipe()
         ->waitForSelector('.pdf-demo')
         ->pdf();
 
