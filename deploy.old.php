@@ -5,14 +5,14 @@ require 'recipe/laravel.php';
 
 // Zone ühendus
 set('application', 'pdf-example');
-set('remote_user', 'virt100251');
-set('http_user', 'virt100251');
+set('remote_user', 'virt83119');
+set('http_user', 'virt83119');
 set('keep_releases', 2);
 
-host('veebisepad.ee')
-    ->setHostname('veebisepad.ee')
-    ->set('http_user', 'virt100251')
-    ->set('deploy_path', '~/domeenid/www.veebisepad.ee/pdf')
+host('ta19heinsoo.itmajakas.ee')
+    ->setHostname('ta19heinsoo.itmajakas.ee')
+    ->set('http_user', 'virt83119')
+    ->set('deploy_path', '~/domeenid/www.ta19heinsoo.itmajakas.ee/pdf')
     ->set('branch', 'main');
 
 set('repository', 'https://github.com/RalfHei/pdf-example.git');
