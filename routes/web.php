@@ -1,20 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
+use App\Jobs\GeneratePdf;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 Route::get('/pdf-example-1', function () {
-    $key = Str::random(40);
 
-    Artisan::call('app:generate-pdf', ['key' => $key]);
+    $pdf = GeneratePdf::dispatchSync();
 
-    return response()->streamDownload(function () use ($key) {
-        echo Cache::pull($key);
+    return response()->streamDownload(function () use ($pdf) {
+        echo $pdf;
     }, 'example.pdf');
 })->name('print');
