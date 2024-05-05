@@ -1,22 +1,20 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Spatie\Browsershot\Browsershot;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 Route::get('/pdf-example-1', function () {
-    $pdf = app(Browsershot::class)
-        ->setUrl(route('home')) 
-        ->format('A4')
-        ->noSandbox()
-        ->usePipe()
-        ->waitForSelector('.pdf-demo')
-        ->pdf();
+    $key = Str::random(40);
 
-    return response()->streamDownload(function () use($pdf) {
-        echo $pdf;
-    }, 'example-1.pdf');
-});
+    Artisan::call('app:generate-pdf', ['key' => $key]);
+
+    return response()->streamDownload(function () use ($key) {
+        echo Cache::pull($key);
+    }, 'example.pdf');
+})->name('print');
