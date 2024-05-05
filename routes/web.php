@@ -1,13 +1,23 @@
 <?php
 
-use App\Jobs\GeneratePdf;
 use Illuminate\Support\Facades\Route;
+use Spatie\Browsershot\Browsershot;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 Route::get('/pdf-example-1', function () {
-    GeneratePdf::dispatch();
+    $pdf = app(Browsershot::class)
+        ->setUrl(route('home')) 
+        ->format('A4')
+        ->noSandbox()
+        ->waitForSelector('.pdf-demo')
+        ->pdf();
 
-})->name('print');
+    return response()->streamDownload(function () use($pdf) {
+        echo $pdf;
+    }, 'example-1.pdf');
+});
+
+
